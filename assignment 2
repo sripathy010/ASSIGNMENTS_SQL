@@ -1,0 +1,35 @@
+use employees;
+
+create table shopping(
+    shop_code int primary key,
+	shop_name varchar(23) not null,
+    product_name varchar(25) not null,
+    price int check (price>0)
+);
+
+insert into shopping values (001,'delush cafe','coffee',10), (002,'buhari','bun',16),(003,'boss','biriyani',150),
+(004,'paanai soru','meals',180);
+ 
+ desc shopping;
+ select * from shopping;
+
+
+output:
+
+# shop_code   shop_name   product_name   price
+      1,       delushcafe    coffee       10
+      2,         buhari       bun         16
+      3,          boss       biriyani     150
+      4,         paanaisoru    meals      180
+
+
+# Field	        Type	     Null	   Key	   Default	  Extra
+shop_code	       int	      NO	   PRI		
+shop_name	     varchar(23)	NO			
+product_name   varchar(25)	NO			
+price	           int	      YES			
+
+
+
+
+
