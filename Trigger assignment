@@ -1,0 +1,64 @@
+create table order_details(
+    order_id int,
+	product varchar(23),
+    product_qty int,
+    unit_price int,
+    total_price int
+);
+
+insert into order_details values (1,'biscuit',5,10,50),(2,'milkshake',3,40,120),(3,'chips',6,10,60),
+(4,'cake',4,15,60);
+
+create table order_backup(
+    order_id int,
+	product varchar(23),
+    total_price int,
+    trigger_type varchar(20)
+);
+
+delimiter %%
+create trigger after_insert
+after insert on
+order_details
+for each row
+begin 
+     insert into order_backup values (new.order_id,new.product,new.total_price,'INSERT');
+     end%%
+     
+     delimiter ;
+
+insert into order_details values (5,'sweets',2,50,100);
+
+select * from order_details;
+
+select * from order_backup;
+
+delimiter &&
+
+create trigger after_update
+after update on
+order_details
+for each row
+begin 
+     insert into order_backup values (new.order_id,new.product,new.total_price,'UPDATE');
+     end&&
+     
+     delimiter ;
+
+
+update order_details set product= 'bread' where order_id = 3;
+
+select * from order_backup;
+
+output:
+
+# order_id	   product	   total_price	   trigger_type
+     5	       sweets       	100	           INSERT
+     3	       bread	        60	           UPDATE
+
+
+
+
+
+
+
